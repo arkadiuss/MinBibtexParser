@@ -1,5 +1,6 @@
 package model;
 
 public class Entry {
-    public String author;
+    protected Field[] fields;
+    protected EntryType type;
 }
