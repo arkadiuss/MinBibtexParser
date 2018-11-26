@@ -15,7 +15,6 @@ public class MinimalBibtexParser implements IBibtexParser {
         String[] entries = bibtex.split("@");
         List<Entry> parsedEntries = new ArrayList<>();
         for(int i=1;i<entries.length;i++){
-            System.out.println(entries[i]);
             Entry e = processEntry(entries[i]);
             //temporary workaround
             if(e!=null)
