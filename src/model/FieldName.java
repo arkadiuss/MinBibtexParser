@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 public enum FieldName {
     AUTHOR("author"),
     TITLE("title"),
@@ -10,9 +12,14 @@ public enum FieldName {
     PAGES("pages"),
     MONTH("month"),
     NOTE("note"),
-    KEY("key");
+    KEY("key"),
+    PUBLISHER("publisher"),
+    ADDRESS("address"),
+    SERIES("series"),
+    EDITION("edition");
 
-    private String name;
+
+    public String name;
     FieldName(String name){
         this.name = name;
     }

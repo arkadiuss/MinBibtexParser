@@ -1,5 +1,10 @@
 package parser;
 
+import exception.ParseException;
+import model.Entry;
+
+import java.util.List;
+
 public interface IBibtexParser {
-    String parse(String bibtex);
+    List<Entry> parse(String bibtex) throws ParseException;
 }
