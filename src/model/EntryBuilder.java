@@ -1,8 +1,6 @@
 package model;
 
 import exception.ParseException;
-import model.entries.ArticleEntry;
-import model.entries.BookEntry;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
