@@ -11,7 +11,9 @@ import java.util.List;
 public class MinimalBibtexParser implements IBibtexParser {
 
     @Override
-    public List<Entry> parse(String bibtex) throws ParseException {
+    public List<Entry> parse(String bibtex) throws ParseException,
+            ClassNotFoundException, NoSuchMethodException,
+            InstantiationException, IllegalAccessException {
         String[] entries = bibtex.split("@");
         List<Entry> parsedEntries = new ArrayList<>();
         for(int i=1;i<entries.length;i++){
@@ -23,7 +25,7 @@ public class MinimalBibtexParser implements IBibtexParser {
         return parsedEntries;
     }
 
-    private Entry processEntry(String entry) throws ParseException {
+    private Entry processEntry(String entry) throws ParseException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         int typeLen = entry.indexOf('{');
         if(typeLen == -1)
             throw new ParseException(entry, "Opening bracket not found");

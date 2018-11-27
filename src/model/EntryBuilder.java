@@ -4,6 +4,7 @@ import exception.ParseException;
 import model.entries.ArticleEntry;
 import model.entries.BookEntry;
 
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,21 +21,20 @@ public class EntryBuilder {
         this.fields.put(field, value);
     }
 
-    public Entry build() throws ParseException{
-        EntryType type = EntryType.valueOf(this.type);
+    public Entry build() throws ParseException, ClassNotFoundException,
+            NoSuchMethodException, InstantiationException, IllegalAccessException {
         Entry entry = getByType(type);
         validateAndAssignValues(entry);
         return entry;
     }
 
-    private Entry getByType(EntryType type) throws ParseException {
-        switch (type) {
-            case BOOK:
-                return new BookEntry();
-            case ARTICLE:
-                return new ArticleEntry();
-        }
-        throw new ParseException("Unknown type exception");
+    private Entry getByType(String type) throws ParseException,
+            ClassNotFoundException, NoSuchMethodException,
+            IllegalAccessException, InstantiationException {
+        String capType = capitalize(type);
+        Class cl = Class.forName("model.entries."+capType + "Entry");
+        Constructor con = cl.getConstructor();
+        return (Entry) cl.newInstance();
     }
 
     private void validateAndAssignValues(Entry e) throws ParseException {
@@ -45,5 +45,9 @@ public class EntryBuilder {
             e.fields[i] = new Field(
                     e.fields[i].name, value, e.fields[i].isRequired);
         }
+    }
+
+    private String capitalize(String text){
+        return text.substring(0,1).toUpperCase() + text.substring(1).toLowerCase();
     }
 }
