@@ -26,6 +26,11 @@ public class AuthorField extends MultivalueField {
                 .toArray(String[]::new);
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     private String formatAuthor(String author) {
         String[] splittedAuthor = author.split("\\|");
         if (splittedAuthor.length == 1){

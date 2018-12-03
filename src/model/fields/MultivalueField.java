@@ -29,7 +29,20 @@ public class MultivalueField extends Field {
     @Override
     public String getValue() {
         return Arrays.stream(values)
-                .reduce(String::concat)
+                .reduce((x,y) -> x + " and " + y)
                 .orElse("");
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getName().name).append(": ");
+        Arrays.stream(values)
+                .forEach(v -> {
+                    if(builder.length()!=getName().name.length()+2)
+                        builder.append("\t\t");
+                    builder.append(v.trim()).append("\n");
+                });
+        return builder.toString();
     }
 }

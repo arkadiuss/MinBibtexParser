@@ -25,14 +25,14 @@ public class EntryBuilder {
     }
 
     private Entry getByType(String type) throws ParseException {
+        String capType = capitalize(type);
         try {
-            String capType = capitalize(type);
             Class cl = Class.forName("model.entries."+capType + "Entry");
             return (Entry) cl.newInstance();
         } catch (InstantiationException |
                 IllegalAccessException |
                 ClassNotFoundException e) {
-            throw new ParseException("Cannot create class by type");
+            throw new ParseException("Cannot create class by type "+capType);
         }
     }
 
@@ -41,8 +41,7 @@ public class EntryBuilder {
             String value = getFieldValueByEntry(e, i);
             if(value == null && e.fields[i].isRequired())
                 throw new ParseException("Entry doesn't contain a required field "+e.fields[i].getName());
-            e.fields[i] = new Field(
-                    e.fields[i].getName(), value, e.fields[i].isRequired());
+            e.fields[i].setValue(value);
         }
     }
 

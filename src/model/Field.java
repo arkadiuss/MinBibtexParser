@@ -54,4 +54,9 @@ public class Field {
     public void setRequired(boolean required) {
         this.required = required;
     }
+
+    @Override
+    public String toString() {
+        return name+": "+value+"\n";
+    }
 }
