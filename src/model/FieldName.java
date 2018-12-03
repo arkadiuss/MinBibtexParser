@@ -1,9 +1,9 @@
 package model;
 
-import java.util.Arrays;
 
 public enum FieldName {
     AUTHOR("author"),
+    EDITOR("editor"),
     TITLE("title"),
     JOURNAL("journal"),
     YEAR("year"),

@@ -23,8 +23,8 @@ public class App {
             entryRepository.getAll().forEach(entry -> {
                 System.out.println("TYPE: "+entry.getType());
                 Arrays.stream(entry.getFields()).forEach(field -> {
-                    if(field.value != null)
-                        System.out.println(field.name + ": "+ field.value);
+                    if(field.getValue() != null)
+                        System.out.println(field.getName() + ": "+ field.getValue());
                 });
                 System.out.println("\n\n");
             });

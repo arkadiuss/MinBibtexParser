@@ -1,56 +1,33 @@
-@ARTICLE{article-minimal,
-   author = {L[eslie] A. Aamport},
-   title = {The Gnats and Gnus Document Preparation System},
-   journal = {\mbox{G-Animal's} Journal},
-   year = 1986,
-}
-
 @STRING{ aaa = "bbb"}
+@STRING{ jan = "naj"}
 
-@ARTICLE{article-full,
-   author = {L[eslie] A. Aamport},
-   title = "The Gnats and Gnus" # "aaa" # "Document Preparation System",
-   journal = {\mbox{G-Animal's} Journal},
-   year = 1986,
-   volume = 41,
-   number = 7,
-   pages = "73+",
-   month = jul,
-   note = "This is a full ARTICLE entry",
+@ARTICLE{article-minimal,
+   author = "Leslie A. Aamport",
+   title = "The Gnats and Gnus Document Preparation System",
+   journal = "G-Animal's Journal",
+   year = "1986",
 }
 
-
-@INBOOK{inbook-minimal,
-   author = "Donald E. Knuth",
-   title = "Fundamental Algorithms",
-   publisher = "Addison-Wesley",
-   year = "{\noopsort{1973b}}1973",
-   chapter = "1.2",
+@ARTICLE{article-minimal,
+   author = "Leslie Ported",
+   title = "The Gnats",
+   journal = "G-Animal's Journal",
+   year = "1983",
 }
 
-@INBOOK{inbook-full,
-   author = "Donald E. Knuth",
-   title = "Fundamental Algorithms",
-   volume = 1,
-   series = "The Art of Computer Programming",
-   publisher = "Addison-Wesley",
-   address = "Reading, Massachusetts",
-   edition = "Second",
-   month = "10~" # jan,
-   year = "{\noopsort{1973b}}1973",
-   type = "Section",
-   chapter = "1.2",
-   pages = "10--119",
-   note = "This is a full INBOOK entry",
+@ARTICLE{article-minimal,
+   author = "Leslie Port",
+   title = "The System",
+   journal = "G-Animal's Journal",
+   year = "1987",
 }
 
-@INBOOK{inbook-crossref,
-   crossref = "whole-set",
+@INBOOK{
    title = "Fundamental Algorithms",
-   volume = 1,
+   volume = "1",
    series = "The Art of Computer Programming",
    edition = "Second",
-   year = "{\noopsort{1973b}}1973",
+   year = "1973",
    type = "Section",
    chapter = "1.2",
    note = "This is a cross-referencing INBOOK entry",
@@ -60,7 +37,7 @@
    author = "Donald E. Knuth",
    title = "Seminumerical Algorithms",
    publisher = "Addison-Wesley",
-   year = "{\noopsort{1973c}}1981",
+   year = "1981",
 }
 
 @BOOK{book-full,
@@ -71,24 +48,18 @@
    publisher = "Addison-Wesley",
    address = "Reading, Massachusetts",
    edition = "Second",
-   month = "10~" # jan,
-   year = "{\noopsort{1973c}}1981",
+   month = "10" # jan,
+   year = "1981",
    note = "This is a full BOOK entry",
 }
-
 
 @BOOK{whole-set,
    author = "Donald E. Knuth",
    publisher = "Addison-Wesley",
    title = "The Art of Computer Programming",
    series = "Four volumes",
-   year = "{\noopsort{1973a}}{\switchargs{--90}{1968}}",
+   year = "{1968}",
    note = "Seven volumes planned (this is a cross-referenced set of BOOKs)",
-}
-
-@BOOKLET{booklet-minimal,
-   key = "Kn{\printfirst{v}{1987}}",
-   title = "The Programming of Computer Art",
 }
 
 @BOOKLET{booklet-full,
@@ -97,7 +68,7 @@
    howpublished = "Vernier Art Center",
    address = "Stanford, California",
    month = feb,
-   year = 1988,
+   year = "1988",
    note = "This is a full BOOKLET entry",
 }
 
@@ -106,23 +77,5 @@
    title = "Semigroups of Recurrences",
    booktitle = "High Speed Computer and Algorithm Organization",
    publisher = "Academic Press",
-   year = 1977,
-}
-
-@INCOLLECTION{incollection-full,
-   author = "Daniel D. Lincoll",
-   title = "Semigroups of Recurrences",
-   editor = "David J. Lipcoll and D. H. Lawrie and A. H. Sameh",
-   booktitle = "High Speed Computer and Algorithm Organization",
-   number = 23,
-   series = "Fast Computers",
-   chapter = 3,
-   type = "Part",
-   pages = "179--183",
-   publisher = "Academic Press",
-   address = "New York",
-   edition = "Third",
-   month = sep,
-   year = 1977,
-   note = "This is a full INCOLLECTION entry",
+   year = "1977",
 }

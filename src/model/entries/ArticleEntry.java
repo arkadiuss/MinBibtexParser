@@ -1,15 +1,12 @@
 package model.entries;
 
-import model.Entry;
-import model.EntryType;
-import model.Field;
-import model.FieldName;
+import model.*;
 
 public class ArticleEntry extends Entry {
 
     public ArticleEntry() {
         fields = new Field[]{
-                new Field(FieldName.AUTHOR,true),
+                new MultivalueField(FieldName.AUTHOR, FieldName.EDITOR,true),
                 new Field(FieldName.TITLE,true),
                 new Field(FieldName.JOURNAL,true),
                 new Field(FieldName.YEAR,true),

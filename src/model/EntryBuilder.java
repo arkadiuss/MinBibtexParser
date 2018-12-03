@@ -2,7 +2,6 @@ package model;
 
 import exception.ParseException;
 
-import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,13 +38,22 @@ public class EntryBuilder {
 
     private void validateAndAssignValues(Entry e) throws ParseException {
         for(int i=0;i<e.fields.length;i++){
-            String value = fields.get(e.fields[i].name.name);
-            if(value == null && e.fields[i].isRequired)
-                throw new ParseException("Entry doesn't contain a required field "+e.fields[i].name);
+            String value = getFieldValueByEntry(e, i);
+            if(value == null && e.fields[i].isRequired())
+                throw new ParseException("Entry doesn't contain a required field "+e.fields[i].getName());
             e.fields[i] = new Field(
-                    e.fields[i].name, value, e.fields[i].isRequired);
+                    e.fields[i].getName(), value, e.fields[i].isRequired());
         }
     }
+
+    private String getFieldValueByEntry(Entry e, int position){
+        Field field = e.fields[position];
+        String value = fields.get(field.getName().name);
+        if(value == null && field.getAlternativeName() != null)
+            value = fields.get(field.getAlternativeName().name);
+        return value;
+    }
+
 
     private String capitalize(String text){
         return text.substring(0,1).toUpperCase() + text.substring(1).toLowerCase();
