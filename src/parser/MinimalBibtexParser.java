@@ -59,11 +59,18 @@ public class MinimalBibtexParser implements IBibtexParser {
         return builder.build();
     }
 
-    private String getValueOfField(String fieldValue, Map<String, String> variables){
-        String[] parts = fieldValue.split("#");
+    private String getValueOfField(String fieldValue, Map<String, String> variables) throws ParseException {
+        String[] parts =
+                Arrays.stream(fieldValue.split("#"))
+                .map(String::trim)
+                .toArray(String[]::new);
         for(int i=0;i<parts.length;i++){
-            String fromVar = variables.get(parts[i].trim());
-            if(fromVar != null){
+            if(parts[i].charAt(0) == '\"'){
+                parts[i] = parts[i].substring(1,parts[i].length()-1);
+            }else{
+                String fromVar = variables.get(parts[i].trim());
+                if(fromVar == null)
+                    throw new ParseException("Variable " + parts[i].trim() + " not found");
                 parts[i] = fromVar;
             }
         }

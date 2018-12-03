@@ -6,5 +6,5 @@ import model.Entry;
 import java.util.List;
 
 public interface IBibtexParser {
-    List<Entry> parse(String bibtex) throws ParseException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+    List<Entry> parse(String bibtex) throws ParseException;
 }
