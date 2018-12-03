@@ -35,13 +35,79 @@ class MinimalBibtexParserTest {
     }
 
     @Test
-    void shouldParseEntryWithStringVariable(){
-        String titleWithVariable = "\"Title\" # variable # \"end\""
-        String entry = "@BOOK{\n" +
-                "author = " + titleWithVariable + "\n," +
+    void shouldParseEntryWithStringVariable() throws ParseException {
+        String titleWithVariable = "\"start\" # variable # \"end\"";
+        String entry =
+                "@STRING{" +
+                    "variable = \"value\""+
+                "}\n\n" +
+                "@BOOK{\n" +
+                    "author = " + titleWithVariable + "\n," +
+                    "title = "+wrapWithQuote(basicTitle)+"\n,"+
+                    "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
+                    "year="+wrapWithQuote(basicYear)+"\n"+
+                "}";
+        List<Entry> entries = parser.parse(entry);
+        assertEquals(1,entries.size());
+        Entry e = entries.get(0);
+        assertArrayEquals(
+                new String[]{"startvalueend", basicTitle, basicPublisher, basicYear},
+                getEntriesList(e));
+    }
+
+    @Test
+    void shouldThrowWhenTypeUnknown() {
+        String entry = "@UNKNOWN{\n" +
+                "author = " + wrapWithQuote(basicAuthor) + "\n," +
                 "title = "+wrapWithQuote(basicTitle)+"\n,"+
                 "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
                 "year="+wrapWithQuote(basicYear)+"\n"+
+                "}";
+        assertThrows(ParseException.class,() -> parser.parse(entry));
+    }
+
+    @Test
+    void shouldThrowParseExceptionWhenEntryDoesntContainRequiredField() {
+        String entry = "@BOOK{\n" +
+                "author = " + wrapWithQuote(basicAuthor) + "\n," +
+                "title = "+wrapWithQuote(basicTitle)+"\n,"+
+                "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
+                "}";
+        assertThrows(ParseException.class,() -> parser.parse(entry));
+    }
+
+    @Test
+    void shouldAcceptOptionalFields() throws ParseException {
+        String volume = "good volume";
+        String series = "good series";
+        String entry = "@BOOK{\n" +
+                "author = " + wrapWithQuote(basicAuthor) + "\n," +
+                "title = "+wrapWithQuote(basicTitle)+"\n,"+
+                "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
+                "year="+wrapWithQuote(basicYear)+"\n,"+
+                "volume="+wrapWithQuote(volume)+"\n,"+
+                "series="+wrapWithQuote(series)+"\n"+
+                "}";
+        List<Entry> entries = parser.parse(entry);
+        assertEquals(1,entries.size());
+        Entry e = entries.get(0);
+        assertArrayEquals(
+                new String[]{
+                        basicAuthor, basicTitle,
+                        basicPublisher, basicYear,
+                        volume, series
+                },
+                getEntriesList(e));
+    }
+
+    @Test
+    void shouldSkipUnknownFields() throws ParseException {
+        String entry = "@BOOK{\n" +
+                "author = " + wrapWithQuote(basicAuthor) + "\n," +
+                "title = "+wrapWithQuote(basicTitle)+"\n,"+
+                "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
+                "year="+wrapWithQuote(basicYear)+"\n,"+
+                "unknown=\"unknown\"\n"+
                 "}";
         List<Entry> entries = parser.parse(entry);
         assertEquals(1,entries.size());

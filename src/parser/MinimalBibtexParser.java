@@ -16,7 +16,6 @@ public class MinimalBibtexParser implements IBibtexParser {
         Map<String, String> variables = new HashMap<>();
         for(int i=1;i<entries.length;i++){
             Entry e = processObject(entries[i], variables);
-            //temporary workaround
             if(e!=null)
                 parsedEntries.add(e);
         }
@@ -44,8 +43,6 @@ public class MinimalBibtexParser implements IBibtexParser {
     private Entry processEntry(String fields, String type, Map<String, String> variables)
             throws ParseException {
         EntryBuilder builder = new EntryBuilder();
-        //temporary workaround
-        if(!EntryType.contains(type)) return null;
         builder.setType(type);
         String[] fieldsWithValues = fields.split(",");
         for (String fwv:fieldsWithValues) {
