@@ -1,12 +1,14 @@
 package model.entries;
 
 import model.*;
+import model.fields.AuthorField;
+import model.fields.MultivalueField;
 
 public class BookEntry extends Entry {
 
     public BookEntry() {
         fields = new Field[]{
-                new MultivalueField(FieldName.AUTHOR,true),
+                new AuthorField(FieldName.AUTHOR,true),
                 new Field(FieldName.TITLE, true),
                 new Field(FieldName.PUBLISHER,true),
                 new Field(FieldName.YEAR,true),

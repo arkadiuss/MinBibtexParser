@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MinimalBibtexParserTest {
     private IBibtexParser parser = new MinimalBibtexParser();
-    private String basicAuthor = "Good basicAuthor";
+    private String basicAuthor = "Good author";
     private String basicTitle = "Good book";
     private String basicPublisher = "Good publisher";
     private String basicYear = "1900";
@@ -21,10 +21,10 @@ class MinimalBibtexParserTest {
     @Test
     void shouldParseSimpleEntry() throws ParseException {
         String entry = "@BOOK{\n" +
-                "author = " + wrapWithQuote(basicAuthor) + "\n," +
-                "title = "+wrapWithQuote(basicTitle)+"\n,"+
-                "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
-                "year="+wrapWithQuote(basicYear)+"\n"+
+                "author = " + wrapWithQuotes(basicAuthor) + "\n," +
+                "title = "+ wrapWithQuotes(basicTitle)+"\n,"+
+                "publisher = "+ wrapWithQuotes(basicPublisher)+"\n,"+
+                "year="+ wrapWithQuotes(basicYear)+"\n"+
                 "}";
         List<Entry> entries = parser.parse(entry);
         assertEquals(1,entries.size());
@@ -43,9 +43,9 @@ class MinimalBibtexParserTest {
                 "}\n\n" +
                 "@BOOK{\n" +
                     "author = " + titleWithVariable + "\n," +
-                    "title = "+wrapWithQuote(basicTitle)+"\n,"+
-                    "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
-                    "year="+wrapWithQuote(basicYear)+"\n"+
+                    "title = "+ wrapWithQuotes(basicTitle)+"\n,"+
+                    "publisher = "+ wrapWithQuotes(basicPublisher)+"\n,"+
+                    "year="+ wrapWithQuotes(basicYear)+"\n"+
                 "}";
         List<Entry> entries = parser.parse(entry);
         assertEquals(1,entries.size());
@@ -58,10 +58,10 @@ class MinimalBibtexParserTest {
     @Test
     void shouldThrowWhenTypeUnknown() {
         String entry = "@UNKNOWN{\n" +
-                "author = " + wrapWithQuote(basicAuthor) + "\n," +
-                "title = "+wrapWithQuote(basicTitle)+"\n,"+
-                "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
-                "year="+wrapWithQuote(basicYear)+"\n"+
+                "author = " + wrapWithQuotes(basicAuthor) + "\n," +
+                "title = "+ wrapWithQuotes(basicTitle)+"\n,"+
+                "publisher = "+ wrapWithQuotes(basicPublisher)+"\n,"+
+                "year="+ wrapWithQuotes(basicYear)+"\n"+
                 "}";
         assertThrows(ParseException.class,() -> parser.parse(entry));
     }
@@ -69,9 +69,9 @@ class MinimalBibtexParserTest {
     @Test
     void shouldThrowParseExceptionWhenEntryDoesntContainRequiredField() {
         String entry = "@BOOK{\n" +
-                "author = " + wrapWithQuote(basicAuthor) + "\n," +
-                "title = "+wrapWithQuote(basicTitle)+"\n,"+
-                "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
+                "author = " + wrapWithQuotes(basicAuthor) + "\n," +
+                "title = "+ wrapWithQuotes(basicTitle)+"\n,"+
+                "publisher = "+ wrapWithQuotes(basicPublisher)+"\n,"+
                 "}";
         assertThrows(ParseException.class,() -> parser.parse(entry));
     }
@@ -81,12 +81,12 @@ class MinimalBibtexParserTest {
         String volume = "good volume";
         String series = "good series";
         String entry = "@BOOK{\n" +
-                "author = " + wrapWithQuote(basicAuthor) + "\n," +
-                "title = "+wrapWithQuote(basicTitle)+"\n,"+
-                "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
-                "year="+wrapWithQuote(basicYear)+"\n,"+
-                "volume="+wrapWithQuote(volume)+"\n,"+
-                "series="+wrapWithQuote(series)+"\n"+
+                "author = " + wrapWithQuotes(basicAuthor) + "\n," +
+                "title = "+ wrapWithQuotes(basicTitle)+"\n,"+
+                "publisher = "+ wrapWithQuotes(basicPublisher)+"\n,"+
+                "year="+ wrapWithQuotes(basicYear)+"\n,"+
+                "volume="+ wrapWithQuotes(volume)+"\n,"+
+                "series="+ wrapWithQuotes(series)+"\n"+
                 "}";
         List<Entry> entries = parser.parse(entry);
         assertEquals(1,entries.size());
@@ -103,10 +103,10 @@ class MinimalBibtexParserTest {
     @Test
     void shouldSkipUnknownFields() throws ParseException {
         String entry = "@BOOK{\n" +
-                "author = " + wrapWithQuote(basicAuthor) + "\n," +
-                "title = "+wrapWithQuote(basicTitle)+"\n,"+
-                "publisher = "+wrapWithQuote(basicPublisher)+"\n,"+
-                "year="+wrapWithQuote(basicYear)+"\n,"+
+                "author = " + wrapWithQuotes(basicAuthor) + "\n," +
+                "title = "+ wrapWithQuotes(basicTitle)+"\n,"+
+                "publisher = "+ wrapWithQuotes(basicPublisher)+"\n,"+
+                "year="+ wrapWithQuotes(basicYear)+"\n,"+
                 "unknown=\"unknown\"\n"+
                 "}";
         List<Entry> entries = parser.parse(entry);
@@ -124,7 +124,7 @@ class MinimalBibtexParserTest {
                         .toArray(String[]::new);
     }
 
-    private String wrapWithQuote(String s){
+    private String wrapWithQuotes(String s){
         return "\""+s+"\"";
     }
 }

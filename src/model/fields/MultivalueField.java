@@ -1,9 +1,12 @@
-package model;
+package model.fields;
+
+import model.Field;
+import model.FieldName;
 
 import java.util.Arrays;
 
 public class MultivalueField extends Field {
-    private String[] values;
+    protected String[] values;
 
     public MultivalueField(FieldName name, boolean isRequired) {
         super(name, isRequired);
@@ -25,6 +28,8 @@ public class MultivalueField extends Field {
 
     @Override
     public String getValue() {
-        return Arrays.stream(values).reduce(String::concat).get();
+        return Arrays.stream(values)
+                .reduce(String::concat)
+                .orElse("");
     }
 }
