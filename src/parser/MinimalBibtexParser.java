@@ -10,9 +10,7 @@ import java.util.*;
 public class MinimalBibtexParser implements IBibtexParser {
 
     @Override
-    public List<Entry> parse(String bibtex) throws ParseException,
-            ClassNotFoundException, NoSuchMethodException,
-            InstantiationException, IllegalAccessException {
+    public List<Entry> parse(String bibtex) throws ParseException {
         String[] entries = bibtex.split("@");
         List<Entry> parsedEntries = new ArrayList<>();
         Map<String, String> variables = new HashMap<>();
@@ -25,7 +23,8 @@ public class MinimalBibtexParser implements IBibtexParser {
         return parsedEntries;
     }
 
-    private Entry processObject(String entry, Map<String, String> variables) throws ParseException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private Entry processObject(String entry, Map<String, String> variables)
+            throws ParseException {
         int typeLen = entry.indexOf('{');
         if(typeLen == -1)
             throw new ParseException(entry, "Opening bracket not found");
@@ -42,8 +41,8 @@ public class MinimalBibtexParser implements IBibtexParser {
         }
     }
 
-    private Entry processEntry(String fields, String type, Map<String, String> variables) throws
-            ClassNotFoundException, NoSuchMethodException, InstantiationException, ParseException, IllegalAccessException {
+    private Entry processEntry(String fields, String type, Map<String, String> variables)
+            throws ParseException {
         EntryBuilder builder = new EntryBuilder();
         //temporary workaround
         if(!EntryType.contains(type)) return null;

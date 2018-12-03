@@ -19,20 +19,22 @@ public class EntryBuilder {
         this.fields.put(field, value);
     }
 
-    public Entry build() throws ParseException, ClassNotFoundException,
-            NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public Entry build() throws ParseException {
         Entry entry = getByType(type);
         validateAndAssignValues(entry);
         return entry;
     }
 
-    private Entry getByType(String type) throws ParseException,
-            ClassNotFoundException, NoSuchMethodException,
-            IllegalAccessException, InstantiationException {
-        String capType = capitalize(type);
-        Class cl = Class.forName("model.entries."+capType + "Entry");
-        Constructor con = cl.getConstructor();
-        return (Entry) cl.newInstance();
+    private Entry getByType(String type) throws ParseException {
+        try {
+            String capType = capitalize(type);
+            Class cl = Class.forName("model.entries."+capType + "Entry");
+            return (Entry) cl.newInstance();
+        } catch (InstantiationException |
+                IllegalAccessException |
+                ClassNotFoundException e) {
+            throw new ParseException("Cannot create class by type");
+        }
     }
 
     private void validateAndAssignValues(Entry e) throws ParseException {
