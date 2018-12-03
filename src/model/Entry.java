@@ -26,4 +26,12 @@ public class Entry {
         entryString.append("\n\n");
         return entryString.toString();
     }
+
+    public boolean fieldContains(FieldName fieldName, String pattern){
+        Field f = Arrays.stream(fields)
+                .filter(field -> field.getName().equals(fieldName))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+        return f.contains(pattern);
+    }
 }

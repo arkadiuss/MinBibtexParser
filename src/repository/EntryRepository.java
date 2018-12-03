@@ -1,9 +1,9 @@
 package repository;
 
 import model.Entry;
+import model.FieldName;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,12 +44,19 @@ public class EntryRepository implements IEntryRepository {
 
     @Override
     public List<Entry> getAllByAuthorName(String authorName) {
-        return Collections.emptyList();
+        return this.entries.stream()
+                .filter(entry -> entry.fieldContains(FieldName.AUTHOR, authorName))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Entry> getAllByAuthorNames(List<String> authorName) {
-        return Collections.emptyList();
+    public List<Entry> getAllByAuthorNames(List<String> authorNames) {
+        return this.entries.stream()
+                .filter(entry ->
+                        authorNames.stream()
+                                .anyMatch(name ->
+                                        entry.fieldContains(FieldName.AUTHOR, name)))
+                .collect(Collectors.toList());
     }
 
 }

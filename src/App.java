@@ -20,7 +20,7 @@ public class App {
             MinimalBibtexParser mbp = new MinimalBibtexParser();
             List<Entry> parsed = mbp.parse(bibtexString);
             entryRepository.addAll(parsed);
-            entryRepository.getAllByType("article")
+            entryRepository.getAllByAuthorName("Les")
                     .forEach(System.out::println);
         } catch (IOException | ParseException e) {
             e.printStackTrace();

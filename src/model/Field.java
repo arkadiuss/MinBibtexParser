@@ -59,4 +59,8 @@ public class Field {
     public String toString() {
         return name+": "+value+"\n";
     }
+
+    public boolean contains(String pattern){
+        return value.contains(pattern);
+    }
 }

@@ -4,6 +4,7 @@ import model.Field;
 import model.FieldName;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class MultivalueField extends Field {
     protected String[] values;
@@ -44,5 +45,11 @@ public class MultivalueField extends Field {
                     builder.append(v.trim()).append("\n");
                 });
         return builder.toString();
+    }
+
+    @Override
+    public boolean contains(String pattern) {
+        return Arrays.stream(values)
+                .anyMatch(value -> value.contains(pattern));
     }
 }
