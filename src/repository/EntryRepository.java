@@ -59,4 +59,13 @@ public class EntryRepository implements IEntryRepository {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Entry> getAllByTypesAndAuthorNames(List<String> types, List<String> authorName) {
+        return getAllByTypes(types).stream()
+                .filter(entry ->
+                        authorName.stream().anyMatch(
+                                name -> entry.fieldContains(FieldName.AUTHOR, name)))
+                .collect(Collectors.toList());
+    }
+
 }

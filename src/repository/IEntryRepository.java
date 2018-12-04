@@ -11,4 +11,5 @@ public interface IEntryRepository {
     List<Entry> getAllByTypes(List<String> types);
     List<Entry> getAllByAuthorName(String authorName);
     List<Entry> getAllByAuthorNames(List<String> authorName);
+    List<Entry> getAllByTypesAndAuthorNames(List<String> types, List<String> authorName);
 }
