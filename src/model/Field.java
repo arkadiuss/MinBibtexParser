@@ -1,5 +1,7 @@
 package model;
 
+import common.StringUtils;
+
 /**
  * Object representation of one field
  */
@@ -60,7 +62,14 @@ public class Field {
 
     @Override
     public String toString() {
-        return name+": "+value+"\n";
+        StringBuilder builder = new StringBuilder();
+        builder.append('*')
+                .append(StringUtils.getFixedLengthString(name.name))
+                .append('*')
+                .append(StringUtils.getFixedLengthString(value))
+                .append("*\n")
+                .append(StringUtils.getFixedLineOfAsterics());
+        return builder.toString();
     }
 
     /**

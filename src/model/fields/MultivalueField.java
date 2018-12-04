@@ -1,5 +1,6 @@
 package model.fields;
 
+import common.StringUtils;
 import model.Field;
 import model.FieldName;
 
@@ -52,13 +53,22 @@ public class MultivalueField extends Field {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(getName().name).append(": ");
-        Arrays.stream(values)
-                .forEach(v -> {
-                    if(builder.length()!=getName().name.length()+2)
-                        builder.append("\t\t");
-                    builder.append(v.trim()).append("\n");
-                });
+        builder.append('*')
+                .append(StringUtils.getFixedLengthString(getName().name))
+                .append("*");
+        boolean isFirst = true;
+        for(String v : values){
+            if(isFirst) {
+                isFirst = false;
+            }else{
+                builder.append('*');
+                builder.append(StringUtils.getFixedLengthString(""));
+                builder.append('*');
+            }
+            builder.append(StringUtils.getFixedLengthString(v.trim()))
+                    .append("*\n");
+        }
+        builder.append(StringUtils.getFixedLineOfAsterics());
         return builder.toString();
     }
 

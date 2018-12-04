@@ -1,5 +1,7 @@
 package model;
 
+import common.StringUtils;
+
 import java.util.Arrays;
 
 /**
@@ -26,7 +28,14 @@ public class Entry {
     @Override
     public String toString() {
         StringBuilder entryString = new StringBuilder();
-        entryString.append(type.name.toUpperCase()).append("\n");
+        entryString.append(StringUtils.getFixedLineOfAsterics())
+                .append('*')
+                .append(
+                StringUtils.getFixedLengthString(
+                        type.name.toUpperCase(),
+                        2*StringUtils.DEFAULT_FIXED_PRINT_LENGTH+1))
+                .append("*\n")
+                .append(StringUtils.getFixedLineOfAsterics());
         Arrays.stream(fields)
                 .filter(field -> field.getValue() != null)
                 .map(Field::toString)
