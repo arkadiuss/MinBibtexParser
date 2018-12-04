@@ -4,6 +4,11 @@ import model.FieldName;
 
 import java.util.Arrays;
 
+/**
+ * Author field is special because
+ * it can be given by 3 different ways.
+ * This class allows to unify them.
+ */
 public class AuthorField extends MultivalueField {
     public AuthorField(FieldName name, boolean isRequired) {
         super(name, isRequired);
@@ -18,6 +23,12 @@ public class AuthorField extends MultivalueField {
         setValue(value);
     }
 
+    /**
+     * Method which split if it is multivalue
+     * and format author names.
+     *
+     * @param value Value to split and format
+     */
     @Override
     public void setValue(String value) {
         super.setValue(value);
@@ -26,11 +37,12 @@ public class AuthorField extends MultivalueField {
                 .toArray(String[]::new);
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
+    /**
+     * Function that determine unified author name
+     * based on given value.
+     * @param author Author in one of three formats
+     * @return Author in unified format
+     */
     private String formatAuthor(String author) {
         String[] splittedAuthor = author.split("\\|");
         if (splittedAuthor.length == 1){

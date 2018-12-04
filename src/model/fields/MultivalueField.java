@@ -4,8 +4,11 @@ import model.Field;
 import model.FieldName;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
+/**
+ * Field which value isn't single.
+ * It can contains many values.
+ */
 public class MultivalueField extends Field {
     protected String[] values;
 
@@ -22,11 +25,23 @@ public class MultivalueField extends Field {
         setValue(value);
     }
 
+    /**
+     * Multivalue fields are splitted
+     * by 'and'. This method gets value
+     * and split it by this keyword
+     *
+     * @param value value to split
+     */
     @Override
     public void setValue(String value) {
         values = value.split("and");
     }
 
+    /**
+     * Method that connects values
+     * with 'and' and return them as String
+     * @return Connected values
+     */
     @Override
     public String getValue() {
         return Arrays.stream(values)
@@ -47,6 +62,13 @@ public class MultivalueField extends Field {
         return builder.toString();
     }
 
+    /**
+     * Check if any of values contains pattern
+     * as a substring
+     *
+     * @param pattern String to check
+     * @return true if any of values contains pattern as a substring or false otherwise
+     */
     @Override
     public boolean contains(String pattern) {
         return Arrays.stream(values)

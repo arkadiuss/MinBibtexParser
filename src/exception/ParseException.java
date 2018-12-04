@@ -1,5 +1,9 @@
 package exception;
 
+/**
+ * Exception which represents problem with parsing
+ * bibtex file.
+ */
 public class ParseException extends Exception {
 
     public ParseException(String message){

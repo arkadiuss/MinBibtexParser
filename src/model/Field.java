@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Object representation of one field
+ */
 public class Field {
     private FieldName name;
     private FieldName alternativeName;
@@ -60,6 +63,12 @@ public class Field {
         return name+": "+value+"\n";
     }
 
+    /**
+     * Method that check if value of this
+     * field contains pattern as substring
+     * @param pattern String to check
+     * @return true is value contains pattern or false otherwise
+     */
     public boolean contains(String pattern){
         return value.contains(pattern);
     }

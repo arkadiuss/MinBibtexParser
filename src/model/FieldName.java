@@ -1,6 +1,9 @@
 package model;
 
 
+/**
+ * Enum for all possible field names
+ */
 public enum FieldName {
     AUTHOR("author"),
     EDITOR("editor"),

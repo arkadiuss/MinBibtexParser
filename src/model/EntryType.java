@@ -1,17 +1,16 @@
 package model;
 
-import java.util.Arrays;
-
+/**
+ * Enum that represents allowed entries' types
+ */
 public enum EntryType {
     BOOK("BOOK"), ARTICLE("ARTICLE");
 
+    /**
+     * Name that occurs in bibtex file
+     */
     String name;
     EntryType(String name){
         this.name = name;
     }
-
-    public static boolean contains(String name){
-        return Arrays.stream(values()).anyMatch(fieldName -> fieldName.name.equals(name));
-    }
-
 }

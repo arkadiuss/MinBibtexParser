@@ -6,24 +6,54 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * Builder for Entry element.
+ * It enables to add all the fields and
+ * validate and create an Entry
+ */
 public class EntryBuilder {
     private String type;
     private Map<String, String> fields = new HashMap<>();
 
+    /**
+     * Method to set type of the Entry
+     * @param type Type of entry
+     */
     public void setType(String type){
         this.type = type;
     }
 
+    /**
+     * Method that allows to set value
+     * of certain field to given value
+     *
+     * @param field Field's name
+     * @param value New value of the field
+     */
     public void setField(String field, String value){
         this.fields.put(field, value);
     }
 
+    /**
+     * Method that validate added fields
+     * and then convert them into entry
+     * @return Entry from added fields
+     * @throws ParseException
+     */
     public Entry build() throws ParseException {
         Entry entry = getByType(type);
         validateAndAssignValues(entry);
         return entry;
     }
 
+    /**
+     * Method that uses reflection mechanism
+     * to create object of matching type
+     *
+     * @param type Type of the record which is the name of the class
+     * @return Object of matched class
+     * @throws ParseException
+     */
     private Entry getByType(String type) throws ParseException {
         String capType = capitalize(type);
         try {
@@ -36,6 +66,14 @@ public class EntryBuilder {
         }
     }
 
+    /**
+     * This method goes through the fields
+     * and validate if it contains all the
+     * required fields and then is assign a value
+     *
+     * @param e Entry of specific type
+     * @throws ParseException when there is no required field
+     */
     private void validateAndAssignValues(Entry e) throws ParseException {
         for(int i=0;i<e.fields.length;i++){
             String value = getFieldValueByEntry(e, i);
@@ -45,6 +83,16 @@ public class EntryBuilder {
         }
     }
 
+    /**
+     * Sometimes field can be also identified by
+     * alternative name, when the name is null.
+     * This method checks if there is value for name
+     * or for alternative name.
+     *
+     * @param e Entry of specific type
+     * @param position Which field of given entry
+     * @return Value for given field
+     */
     private String getFieldValueByEntry(Entry e, int position){
         Field field = e.fields[position];
         String value = fields.get(field.getName().name);
@@ -53,7 +101,11 @@ public class EntryBuilder {
         return value;
     }
 
-
+    /**
+     * Method that capitalize string
+     * @param text String to capitalize
+     * @return Capitalized string
+     */
     private String capitalize(String text){
         return text.substring(0,1).toUpperCase() + text.substring(1).toLowerCase();
     }
