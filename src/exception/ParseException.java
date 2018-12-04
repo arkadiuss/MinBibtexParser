@@ -11,7 +11,7 @@ public class ParseException extends Exception {
     }
 
     public ParseException(String entry, String message){
-        super("Exception during parsing entry:\n " + entry +
+        super("Exception during parsing entry:\n " + entry.trim() +
                 "\n nested exception is: "+ message);
     }
 }
