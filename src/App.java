@@ -11,6 +11,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Simple app that enables user to parse bibtex file
+ * and show results. App also has an option to filter
+ * results by author or type (category)
+ *
+ * @author Arkadiusz Kraus
+ */
 public class App {
     private CommandLineParser commandLineParser = new DefaultParser();
     private HelpFormatter helpFormatter = new HelpFormatter();
