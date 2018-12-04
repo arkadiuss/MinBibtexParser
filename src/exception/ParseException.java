@@ -7,11 +7,11 @@ package exception;
 public class ParseException extends Exception {
 
     public ParseException(String message){
-        super("Exception during parsing: " + message);
+        super(message);
     }
 
     public ParseException(String entry, String message){
-        super("Exception during parsing entry: " + entry +
+        super("Exception during parsing entry:\n " + entry +
                 "\n nested exception is: "+ message);
     }
 }

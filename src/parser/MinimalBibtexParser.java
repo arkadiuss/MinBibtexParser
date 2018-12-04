@@ -61,7 +61,7 @@ public class MinimalBibtexParser implements IBibtexParser {
             processVariable(fields, variables);
             return null;
         }else{
-            return processEntry(fields, type, variables);
+            return processEntry(fields, type, variables, entry);
         }
     }
 
@@ -77,7 +77,8 @@ public class MinimalBibtexParser implements IBibtexParser {
      * @return Builded entry with values
      * @throws ParseException
      */
-    private Entry processEntry(String fields, String type, Map<String, String> variables)
+    private Entry processEntry(String fields, String type,
+                               Map<String, String> variables, String source)
             throws ParseException {
         EntryBuilder builder = new EntryBuilder();
         builder.setType(type);
@@ -90,7 +91,11 @@ public class MinimalBibtexParser implements IBibtexParser {
                         getValueOfField(fieldAndValue[1].trim(), variables));
             }
         }
-        return builder.build();
+        try {
+            return builder.build();
+        }catch (ParseException e){
+            throw new ParseException(source, e.getMessage());
+        }
     }
 
     /**
