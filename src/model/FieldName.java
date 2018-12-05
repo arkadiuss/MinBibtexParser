@@ -19,7 +19,14 @@ public enum FieldName {
     PUBLISHER("publisher"),
     ADDRESS("address"),
     SERIES("series"),
-    EDITION("edition");
+    EDITION("edition"),
+    BOOKTITLE("booktitle"),
+    ORGANIZATION("organization"),
+    HOWPUBLISHED("howpublished"),
+    CHAPTER("chapter"),
+    TYPE("type"),
+    SCHOOL("SCHOOL"),
+    INSTITUTION("INSTITUTION");
 
 
     public String name;
