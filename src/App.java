@@ -46,6 +46,10 @@ public class App {
             app.printHelp();
         }else{
             IEntryRepository entryRepository = new EntryRepository();
+            if(cmd.getArgs().length != 1){
+                app.printHelp();
+                System.exit(1);
+            }
             String bibtexString = app.readFile(cmd.getArgs()[0]);
             List<Entry> parsed = app.parseBibtex(bibtexString);
             entryRepository.addAll(parsed);

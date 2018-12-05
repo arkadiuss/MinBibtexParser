@@ -44,20 +44,22 @@ public class MinimalBibtexParser implements IBibtexParser {
      *
      * @param entry One of the entries without @ sign
      * @param variables Maps that keep bibtex variables
-     * @return Processed entry or null if record is a string variable
+     * @return Processed entry or null if record is a string variable or not an entry
      * @throws ParseException when brackets are not found
      */
     private Entry processObject(String entry, Map<String, String> variables)
             throws ParseException {
         int typeLen = entry.indexOf('{');
-        if(typeLen == -1)
-            throw new ParseException(entry, "Opening bracket not found");
+        if (typeLen == -1)
+            return null;
         int closingBracket = entry.lastIndexOf('}');
-        if(closingBracket == -1)
+        if (closingBracket == -1)
             throw new ParseException(entry, "Closing bracket not found");
         String type = entry.substring(0, typeLen);
-        String fields = entry.substring(typeLen+1, closingBracket);
-        if(type.equals("STRING")){
+        String fields = entry.substring(typeLen + 1, closingBracket);
+        if (type.equals("PREAMBLE") || type.equals("COMMENT")){
+            return null;
+        }else if(type.equals("STRING")){
             processVariable(fields, variables);
             return null;
         }else{
