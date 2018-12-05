@@ -98,4 +98,11 @@ public class EntryRepository implements IEntryRepository {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Entry> geyByYear(String year) {
+        return this.entries.stream()
+                .filter(entry -> entry.fieldContains(FieldName.YEAR, year))
+                .collect(Collectors.toList());
+    }
+
 }

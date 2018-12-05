@@ -70,4 +70,6 @@ public interface IEntryRepository {
      * @return List of entries that match both criteria
      */
     List<Entry> getAllByTypesAndAuthorNames(List<String> types, List<String> authorNames);
+
+    List<Entry> geyByYear(String year);
 }
