@@ -6,7 +6,7 @@ import model.fields.MultivalueField;
 
 public class BookEntry extends Entry {
 
-    public BookEntry() {
+    public BookEntry(String quoteKey) {
         fields = new Field[]{
                 new AuthorField(FieldName.AUTHOR,true),
                 new Field(FieldName.TITLE, true),
@@ -21,5 +21,6 @@ public class BookEntry extends Entry {
                 new Field(FieldName.KEY, false)
         };
         type = EntryType.BOOK;
+        this.quoteKey = quoteKey;
     }
 }

@@ -8,7 +8,7 @@ import model.fields.AuthorField;
 
 public class InproceedingsEntry extends Entry {
 
-    public InproceedingsEntry() {
+    public InproceedingsEntry(String quoteKey) {
         fields = new Field[]{
                 new AuthorField(FieldName.AUTHOR,true),
                 new Field(FieldName.TITLE, true),
@@ -26,5 +26,6 @@ public class InproceedingsEntry extends Entry {
                 new Field(FieldName.KEY, false)
         };
         type = EntryType.INPROCEEDINGS;
+        this.quoteKey = quoteKey;
     }
 }

@@ -8,7 +8,7 @@ import model.fields.AuthorField;
 
 public class MiscEntry extends Entry {
 
-    public MiscEntry() {
+    public MiscEntry(String quoteKey) {
         fields = new Field[]{
                 new AuthorField(FieldName.AUTHOR,false),
                 new Field(FieldName.TITLE,false),
@@ -19,5 +19,6 @@ public class MiscEntry extends Entry {
                 new Field(FieldName.KEY, false)
         };
         type = EntryType.MISC;
+        this.quoteKey = quoteKey;
     }
 }

@@ -8,7 +8,7 @@ import model.fields.AuthorField;
 
 public class MasterthesisEntry extends Entry {
 
-    public MasterthesisEntry() {
+    public MasterthesisEntry(String quoteKey) {
         fields = new Field[]{
                 new AuthorField(FieldName.AUTHOR,true),
                 new Field(FieldName.TITLE, true),
@@ -21,5 +21,6 @@ public class MasterthesisEntry extends Entry {
                 new Field(FieldName.KEY, false)
         };
         type = EntryType.MASTERTHESIS;
+        this.quoteKey = quoteKey;
     }
 }

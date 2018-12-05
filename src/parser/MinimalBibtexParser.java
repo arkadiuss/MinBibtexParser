@@ -85,6 +85,7 @@ public class MinimalBibtexParser implements IBibtexParser {
         EntryBuilder builder = new EntryBuilder();
         builder.setType(type);
         String[] fieldsWithValues = fields.split(",");
+        builder.setQuoteKey(fieldsWithValues[0]);
         for (String fwv:fieldsWithValues) {
             String[] fieldAndValue = fwv.split("=");
             if(fieldAndValue.length == 2) {

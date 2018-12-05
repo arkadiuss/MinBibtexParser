@@ -8,7 +8,7 @@ import model.fields.AuthorField;
 
 public class IncollectionEntry extends Entry {
 
-    public IncollectionEntry() {
+    public IncollectionEntry(String quoteKey) {
         fields = new Field[]{
                 new AuthorField(FieldName.AUTHOR,true),
                 new Field(FieldName.TITLE, true),
@@ -28,5 +28,6 @@ public class IncollectionEntry extends Entry {
                 new Field(FieldName.KEY, false)
         };
         type = EntryType.INCOLLECTION;
+        this.quoteKey = quoteKey;
     }
 }

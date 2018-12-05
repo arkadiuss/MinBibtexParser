@@ -10,6 +10,7 @@ import java.util.Arrays;
 public class Entry {
     protected Field[] fields;
     protected EntryType type;
+    protected String quoteKey;
 
     public Field[] getFields() {
         return fields;
@@ -32,7 +33,7 @@ public class Entry {
                 .append('*')
                 .append(
                 StringUtils.getFixedLengthString(
-                        type.name.toUpperCase(),
+                        type.name.toUpperCase() + " ("+quoteKey+")",
                         2*StringUtils.DEFAULT_FIXED_PRINT_LENGTH+1))
                 .append("*\n")
                 .append(StringUtils.getFixedLineOfAsterics());

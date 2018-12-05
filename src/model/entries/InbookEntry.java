@@ -8,7 +8,7 @@ import model.fields.AuthorField;
 
 public class InbookEntry extends Entry {
 
-    public InbookEntry() {
+    public InbookEntry(String quoteKey) {
         fields = new Field[]{
                 new AuthorField(FieldName.AUTHOR, FieldName.EDITOR, true),
                 new Field(FieldName.TITLE, true),
@@ -25,5 +25,6 @@ public class InbookEntry extends Entry {
                 new Field(FieldName.KEY, false)
         };
         type = EntryType.INBOOK;
+        this.quoteKey = quoteKey;
     }
 }

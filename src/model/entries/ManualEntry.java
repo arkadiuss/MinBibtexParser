@@ -8,7 +8,7 @@ import model.fields.AuthorField;
 
 public class ManualEntry extends Entry {
 
-    public ManualEntry() {
+    public ManualEntry(String quoteKey) {
         fields = new Field[]{
                 new Field(FieldName.TITLE, true),
                 new AuthorField(FieldName.AUTHOR,false),
@@ -21,5 +21,6 @@ public class ManualEntry extends Entry {
                 new Field(FieldName.KEY, false)
         };
         type = EntryType.MANUAL;
+        this.quoteKey = quoteKey;
     }
 }

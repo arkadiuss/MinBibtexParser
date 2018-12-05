@@ -2,6 +2,8 @@ package model;
 
 import exception.ParseException;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ import java.util.Map;
 public class EntryBuilder {
     private String type;
     private Map<String, String> fields = new HashMap<>();
+    private String quoteKey;
 
     /**
      * Method to set type of the Entry
@@ -34,6 +37,10 @@ public class EntryBuilder {
         this.fields.put(field, value);
     }
 
+    public void setQuoteKey(String quoteKey){
+        this.quoteKey = quoteKey;
+    }
+
     /**
      * Method that validate added fields
      * and then convert them into entry
@@ -41,7 +48,7 @@ public class EntryBuilder {
      * @throws ParseException
      */
     public Entry build() throws ParseException {
-        Entry entry = getByType(type);
+        Entry entry = getByType(type, quoteKey);
         validateAndAssignValues(entry);
         return entry;
     }
@@ -54,14 +61,15 @@ public class EntryBuilder {
      * @return Object of matched class
      * @throws ParseException
      */
-    private Entry getByType(String type) throws ParseException {
+    private Entry getByType(String type, String quoteKey) throws ParseException {
         String capType = capitalize(type);
         try {
             Class cl = Class.forName("model.entries."+capType + "Entry");
-            return (Entry) cl.newInstance();
-        } catch (InstantiationException |
-                IllegalAccessException |
-                ClassNotFoundException e) {
+            Constructor<?> cons = cl.getConstructor(String.class);
+            return (Entry) cons.newInstance(quoteKey);
+        } catch (InstantiationException | IllegalAccessException |
+                ClassNotFoundException | NoSuchMethodException |
+                InvocationTargetException e) {
             throw new ParseException("Cannot create class by type "+capType);
         }
     }
