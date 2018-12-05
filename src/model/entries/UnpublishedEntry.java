@@ -17,6 +17,6 @@ public class UnpublishedEntry extends Entry {
                 new Field(FieldName.YEAR,false),
                 new Field(FieldName.KEY, false)
         };
-        type = EntryType.BOOK;
+        type = EntryType.UNPUBLISHED;
     }
 }

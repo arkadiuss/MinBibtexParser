@@ -25,6 +25,6 @@ public class InproceedingsEntry extends Entry {
                 new Field(FieldName.NOTE, false),
                 new Field(FieldName.KEY, false)
         };
-        type = EntryType.BOOK;
+        type = EntryType.INPROCEEDINGS;
     }
 }

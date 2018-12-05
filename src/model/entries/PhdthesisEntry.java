@@ -20,6 +20,6 @@ public class PhdthesisEntry extends Entry {
                 new Field(FieldName.NOTE, false),
                 new Field(FieldName.KEY, false)
         };
-        type = EntryType.BOOK;
+        type = EntryType.PHDTHESIS;
     }
 }
