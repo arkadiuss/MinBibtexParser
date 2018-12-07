@@ -28,8 +28,9 @@ public class MinimalBibtexParser implements IBibtexParser {
         String[] entries = bibtex.split("@");
         List<Entry> parsedEntries = new ArrayList<>();
         Map<String, String> variables = new HashMap<>();
+        Map<String, Map<String, String>> crossReferences = new HashMap<>();
         for(int i=1;i<entries.length;i++){
-            Entry e = processObject(entries[i], variables);
+            Entry e = processObject(entries[i], variables, crossReferences);
             if(e!=null)
                 parsedEntries.add(e);
         }
@@ -47,7 +48,9 @@ public class MinimalBibtexParser implements IBibtexParser {
      * @return Processed entry or null if record is a string variable or not an entry
      * @throws ParseException when brackets are not found
      */
-    private Entry processObject(String entry, Map<String, String> variables)
+    private Entry processObject(String entry,
+                                Map<String, String> variables,
+                                Map<String, Map<String, String>> crossReferences)
             throws ParseException {
         int typeLen = entry.indexOf('{');
         if (typeLen == -1)
@@ -56,14 +59,14 @@ public class MinimalBibtexParser implements IBibtexParser {
         if (closingBracket == -1)
             throw new ParseException(entry, "Closing bracket not found");
         String type = entry.substring(0, typeLen);
-        String fields = entry.substring(typeLen + 1, closingBracket);
+        String fields = entry.substring(typeLen + 1, closingBracket);;
         if (type.equals("PREAMBLE") || type.equals("COMMENT")){
             return null;
         }else if(type.equals("STRING")){
             processVariable(fields, variables);
             return null;
         }else{
-            return processEntry(fields, type, variables, entry);
+            return processEntry(fields, type, variables, crossReferences, entry);
         }
     }
 
@@ -76,29 +79,61 @@ public class MinimalBibtexParser implements IBibtexParser {
      * @param fields Not splitted entry without surrounding brackets
      * @param type Type of the entry
      * @param variables Map of string variables
+     * @param source Source string to enable adding it to exception
      * @return Builded entry with values
      * @throws ParseException
      */
     private Entry processEntry(String fields, String type,
-                               Map<String, String> variables, String source)
+                               Map<String, String> variables,
+                               Map<String, Map<String, String>> crossReferences,
+                               String source)
             throws ParseException {
         EntryBuilder builder = new EntryBuilder();
         builder.setType(type);
         String[] fieldsWithValues = fields.split(",");
         builder.setQuoteKey(fieldsWithValues[0]);
-        for (String fwv:fieldsWithValues) {
-            String[] fieldAndValue = fwv.split("=");
-            if(fieldAndValue.length == 2) {
-                builder.setField(
-                        fieldAndValue[0].trim(),
-                        getValueOfField(fieldAndValue[1].trim(), variables));
-            }
-        }
+        Map<String, String> fieldsMap = processFields(
+                crossReferences, variables,fieldsWithValues,source);
+        fieldsMap.forEach(builder::setField);
+        crossReferences.put(fieldsWithValues[0], fieldsMap);
         try {
             return builder.build();
         }catch (ParseException e){
             throw new ParseException(source, e.getMessage());
         }
+    }
+
+    /**
+     * @param crossReferences Map of previously processed records that can be used for croosrefs
+     * @param variables Map of string variables
+     * @param fieldsWithValues List of fields in format field=value
+     * @param source Source string to enable adding it to exception
+     * @return Map that contains translated field to value
+     * @throws ParseException when cross reference not found
+     */
+    private Map<String, String> processFields(
+            Map<String, Map<String, String>> crossReferences,
+            Map<String, String> variables,
+            String[] fieldsWithValues,
+            String source) throws ParseException {
+        Map<String, String> fieldsMap = new HashMap<>();
+        for (String fwv:fieldsWithValues) {
+            String[] fieldAndValue = fwv.split("=");
+            if(fieldAndValue.length == 2) {
+                String fieldName = fieldAndValue[0].trim();
+                String fieldValue = getValueOfField(fieldAndValue[1].trim(), variables);
+                if(fieldName.equals("crossref")){
+                    Map<String, String> referencedField = crossReferences.get(fieldValue);
+                    if(referencedField==null)
+                        throw new ParseException(source,
+                                "Referenced field "+fieldValue+" not found");
+                    referencedField.forEach(fieldsMap::put);
+                }else{
+                    fieldsMap.put(fieldName, fieldValue);
+                }
+            }
+        }
+        return fieldsMap;
     }
 
     /**
