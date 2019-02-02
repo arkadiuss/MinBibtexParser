@@ -1,9 +1,10 @@
 Simple bibtex parser implementation written in Java.
 
 Features:
-*parsing simple bibtex syntax, divided by commas,
-*parsing cross references,
-*parsing authors written id different ways,
-*searching by author or title in parsed entries
-
+<ul>
+  <li>parsing simple bibtex syntax, divided by commas</li>
+  <li>parsing cross references</li>
+  <li>parsing authors written id different ways</li>
+  <li>searching by author or title in parsed entries</li>
+</ul>
 Example files: test.bib, xampl-min.bib
